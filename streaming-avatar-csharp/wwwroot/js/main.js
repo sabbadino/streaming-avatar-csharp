@@ -14,6 +14,7 @@ const TTSVoice = "en-US-JennyMultilingualNeural" // Update this value if you wan
 const CogSvcRegion = "westeurope" // Fill your Azure cognitive services region here, e.g. westus2
 
 const IceServerUrl = "turn:relay.communication.microsoft.com:3478" // Fill your ICE server URL here, e.g. turn:turn.azure.com:3478
+//const IceServerUrl = "turn:relay.communication.microsoft.com:3478?transport=tcp" // Fill your ICE server URL here, e.g. turn:turn.azure.com:3478
 let IceServerUsername
 let IceServerCredential
 
