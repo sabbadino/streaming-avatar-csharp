@@ -13,8 +13,8 @@ const TTSVoice = "en-US-JennyMultilingualNeural" // Update this value if you wan
 
 const CogSvcRegion = "westeurope" // Fill your Azure cognitive services region here, e.g. westus2
 
-const IceServerUrl = "turn:relay.communication.microsoft.com:3478" // Fill your ICE server URL here, e.g. turn:turn.azure.com:3478
-//const IceServerUrl = "turn:relay.communication.microsoft.com:3478?transport=tcp" // Fill your ICE server URL here, e.g. turn:turn.azure.com:3478
+//const IceServerUrl = "turn:relay.communication.microsoft.com:3478" // Fill your ICE server URL here, e.g. turn:turn.azure.com:3478
+const IceServerUrl = "turn:relay.communication.microsoft.com:443?transport=tcp" // Fill your ICE server URL here, e.g. turn:turn.azure.com:3478
 let IceServerUsername
 let IceServerCredential
 
@@ -131,13 +131,9 @@ async function generateText(prompt) {
   .then(data => {
     generatedText = data["messages"][data["messages"].length - 1].content;
     messages = data["messages"];
-    products = data["products"]
   });
 
   addToConversationHistory(generatedText, 'light');
-  if(products.length > 0) {
-    addProductToChatHistory(products[0]);
-  }
   return generatedText;
 }
 
@@ -358,24 +354,6 @@ function addToConversationHistory(item, historytype) {
   newItem.classList.add(`message--${historytype}`);
   newItem.textContent = item;
   list.appendChild(newItem);
-}
-
-function addProductToChatHistory(product) {
-  const list = document.getElementById('chathistory');
-  const listItem = document.createElement('li');
-  listItem.classList.add('product');
-  listItem.innerHTML = `
-    <fluent-card class="product-card">
-      <div class="product-card__header">
-        <img src="${product.image_url}" alt="tent" width="100%">
-      </div>
-      <div class="product-card__content">
-        <div><span class="product-card__price">$${product.special_offer}</span> <span class="product-card__old-price">$${product.original_price}</span></div>
-        <div>${product.tagline}</div>
-      </div>
-    </fluent-card>
-  `;
-  list.appendChild(listItem);
 }
 
 // Make video background transparent by matting

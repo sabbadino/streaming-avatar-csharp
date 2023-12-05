@@ -66,17 +66,18 @@ public class AvatarController : ControllerBase
     
 
     [HttpPost(template: "message", Name = "message")]
-    public async Task<List<Message>> Message(List<Message> messages)
+    public async Task<MessageResponse> Message(List<Message> messages)
     {
-        var ret = messages;
-        ret.Add(new Controllers.Message { Role = "bot", Content = "hello from Emma"});
+        var ret = new MessageResponse();
+        ret.Messages.AddRange(messages);    
+        ret.Messages.Add(new Controllers.Message { Role = "bot", Content = "hello from Emma"});
         return ret;
     }
     [HttpPost(template: "detectLanguage", Name = "detectLanguage")]
     public async Task<string> DetectLanguage([FromQuery] string text)
     {
-        //return "en-US";
-        return "en";
+        return "en-US";
+        //return "en";
     }
     
 
@@ -129,6 +130,10 @@ public class GetIceServerTokenResponse
     public string Credential { get; init; } = "";
 }
 
-
+public class MessageResponse
+{
+    public List<Message> Messages { get; init; } = new();
+    
+}
 
 
